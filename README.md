@@ -1,6 +1,4 @@
-﻿<div align="center">
-# <a href="https://github.com/datnguyennt/CuuHoXe.git" target="_blank" rel="noopener noreferrer">PROJECT ĐỒ ÁN I</a>
-</div>
+﻿# PROJECT ĐỒ ÁN I
 ## Tên đề tài
 - Website cứu hộ xe
 ## Công nghệ sử dụng
