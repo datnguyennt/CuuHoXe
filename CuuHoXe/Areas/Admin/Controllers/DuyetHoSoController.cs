@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace CuuHoXe.Areas.Admin.Controllers
 {
-    public class AdminController : Controller
+    public class DuyetHoSoController : Controller
     {
-        // GET: Admin/Admin
+        // GET: Admin/DuyetHoSo
         public ActionResult Index()
         {
             return View();

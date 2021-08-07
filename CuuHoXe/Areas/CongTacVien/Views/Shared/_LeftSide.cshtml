@@ -27,15 +27,23 @@
             <ul class="nav sidebar-inner" id="sidebar-menu">
 
                 <li class="has-sub active expand">
-                    <a href="@Url.Action("Index", "DuyetHoSo")" >
+                    <a href="@Url.Action("Index", "DuyetHoSo")" class="" data-target="#product" aria-controls="dashboard">
                         <i class="mdi mdi-clipboard-check-outline"></i>
                         <span class="nav-text">Duyệt Hồ Sơ</span>
                     </a>
 
                 </li>
 
-                <li class="has-sub active expand ">
-                    <a href="@Url.Action("Index", "DoiMatKhau")">
+                <li class="has-sub active expand">
+                    <a href="@Url.Action("Index", "QuanLyThuPhi")" class="" data-target="#product" aria-controls="dashboard">
+                        <i class="mdi mdi-cash-usd"></i>
+                        <span class="nav-text">Quản Lý Thu Phí</span>
+                    </a>
+
+                </li>
+
+                <li class="has-sub active expand">
+                    <a href="@Url.Action("Index", "DoiMatKhau")" class="" data-target="#user-account" aria-expanded="false" aria-controls="ui-elements">
                         <i class="mdi mdi-shield-key-outline"></i>
                         <span class="nav-text">Đổi Mật Khẩu</span>
                     </a>
@@ -69,24 +77,4 @@
             </div>
         </div>
     </div>
-    <script>
-        let listItems = document.querySelectorAll('#sidebar-menu li');
-
-        listItems.forEach((item, index) => {
-            item.addEventListener('click', (event) => {
-                //document.getElementsByClassName("has-sub active expand").setAttribute("class", "has-sub");
-                //document.getElementsByClassName("has-sub").setAttribute("class", "has-sub active expand");
-                //var object = document.getElementsByClassName("ul > li.has-sub active expand");
-                //var x = object.class;
-                //if (x == "has-sub active expand") {
-                //    object.class = "has-sub";
-                //}
-                //item.setAttribute("class", "has-sub active expand");
-                //alert(`${event.currentTarget.innerHTML} item was click`);
-            });
-            //if (item.innerHTML.indexOf('Last 30 days') != -1) {
-            //    item.click();
-            //}
-        });
-    </script>
 </aside>

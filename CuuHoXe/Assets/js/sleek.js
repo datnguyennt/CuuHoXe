@@ -46,7 +46,8 @@ $(document).ready(function() {
   /*======== 3. SIDEBAR MENU ========*/
   $(".sidebar .nav > .has-sub > a").click(function(){
     $(this).parent().siblings().removeClass('expand')
-    $(this).parent().toggleClass('expand')
+      $(this).parent().toggleClass('expand')
+      //$(".sidebar .nav > .has-sub > a > span").css("visited", "color: #ff0000")
   })
 
   $(".sidebar .nav > .has-sub .has-sub > a").click(function(){

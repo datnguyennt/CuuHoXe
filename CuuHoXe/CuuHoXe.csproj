@@ -121,7 +121,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DoiMatKhauController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DuyetHoSoController.cs" />
+    <Compile Include="Areas\CongTacVien\CongTacVienAreaRegistration.cs" />
+    <Compile Include="Areas\CongTacVien\Controllers\DoiMatKhauController.cs" />
+    <Compile Include="Areas\CongTacVien\Controllers\DuyetHoSoController.cs" />
+    <Compile Include="Areas\CongTacVien\Controllers\QuanLyThuPhiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -876,10 +881,19 @@
     <Content Include="Assets\scss\_widgets.scss" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Topbar.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LeftSide.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Admin\Views\DuyetHoSo\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DoiMatKhau\Index.cshtml" />
+    <Content Include="Areas\CongTacVien\Views\web.config" />
+    <Content Include="Areas\CongTacVien\Views\DuyetHoSo\Index.cshtml" />
+    <Content Include="Areas\CongTacVien\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\CongTacVien\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\CongTacVien\Views\Shared\_LeftSide.cshtml" />
+    <Content Include="Areas\CongTacVien\Views\Shared\_Topbar.cshtml" />
+    <Content Include="Areas\CongTacVien\Views\QuanLyThuPhi\Index.cshtml" />
+    <Content Include="Areas\CongTacVien\Views\DoiMatKhau\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -909,6 +923,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\CongTacVien\Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
