@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>@ViewBag.Title</title>
+
+	<!-- ========== COMMON STYLES ========== -->
+	<link rel="stylesheet" href="~/Assets/css/bootstrap.min.css" media="screen">
+	<link rel="stylesheet" href="~/Assets/css/font-awesome.min.css" media="screen">
+	<link rel="stylesheet" href="~/Assets/css/animate-css/animate.min.css" media="screen">
+	<link rel="stylesheet" href="~/Assets/css/lobipanel/lobipanel.min.css" media="screen">
+
+	<!-- ========== PAGE STYLES ========== -->
+	<link rel="stylesheet" href="~/Assets/css/icheck/skins/line/blue.css">
+	<link rel="stylesheet" href="~/Assets/css/icheck/skins/line/red.css">
+	<link rel="stylesheet" href="~/Assets/css/icheck/skins/line/green.css">
+
+	<link href="~/Scripts/dropzone/dropzone.min.css" rel="stylesheet" />
+	<script src="~/Scripts/dropzone/dropzone.min.js"></script>
+	<!-- ========== THEME CSS ========== -->
+	<link rel="stylesheet" href="~/Assets/css/main.css" media="screen">
+
+	<!-- ========== MODERNIZR ========== -->
+	<script src="~/Assets/js/modernizr/modernizr.min.js"></script>
+</head>
+<body class="top-navbar-fixed">
+	<div class="main-wrapper">
+
+		<!-- ========== TOP NAVBAR ========== -->
+		@Html.Partial("_Topbar")
+		<!-- ========== WRAPPER FOR BOTH SIDEBARS & MAIN CONTENT ========== -->
+		<div class="content-wrapper">
+			<div class="content-container">
+
+				<!-- ========== LEFT SIDEBAR ========== -->
+				@Html.Partial("_Sidebar")
+				<!-- /.left-sidebar -->
+
+				<div class="main-page">
+					<div class="container-fluid">
+						<div class="row page-title-div">
+							<div class="col-sm-6">
+								<h2 class="title">@ViewBag.Title</h2>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+					<div class="container-fluid">
+						@Html.Partial("_Notifications")
+						@RenderBody()
+					</div>
+					<!-- /.section -->
+				</div>
+				<!-- /.main-page -->
+			</div>
+			<!-- /.content-container -->
+		</div>
+		<!-- /.content-wrapper -->
+	</div>
+	<script src="~/Assets/js/jquery/jquery-2.2.4.min.js"></script>
+	<script src="~/Assets/js/jquery-ui/jquery-ui.min.js"></script>
+	<script src="~/Assets/js/bootstrap/bootstrap.min.js"></script>
+	<script src="~/Assets/js/pace/pace.min.js"></script>
+	<script src="~/Assets/js/lobipanel/lobipanel.min.js"></script>
+	<script src="~/Assets/js/iscroll/iscroll.js"></script>
+
+	<!-- ========== PAGE JS FILES ========== -->
+	<script src="~/Assets/js/prism/prism.js"></script>
+	<script src="~/Assets/js/waypoint/waypoints.min.js"></script>
+	<script src="~/Assets/js/counterUp/jquery.counterup.min.js"></script>
+	<script src="~/Assets/js/amcharts/amcharts.js"></script>
+	<script src="~/Assets/js/amcharts/serial.js"></script>
+	<script src="~/Assets/js/amcharts/plugins/export/export.min.js"></script>
+	<link rel="stylesheet" href="~/Assets/js/amcharts/plugins/export/export.css" type="text/css" media="all" />
+	<script src="~/Assets/js/amcharts/themes/light.js"></script>
+	<script src="~/Assets/js/toastr/toastr.min.js"></script>
+	<script src="~/Assets/js/icheck/icheck.min.js"></script>
+	<!-- ========== PAGE JS FILES ========== -->
+	<script src="js/prism/prism.js"></script>
+	
+	<!-- ========== THEME JS ========== -->
+	<script src="~/Assets/js/main.js"></script>
+	<script src="~/Assets/js/production-chart.js"></script>
+	<script src="~/Assets/js/traffic-chart.js"></script>
+	<script src="~/Assets/js/task-list.js"></script>
+	<script src="~/Scripts/dropzone/dropzone.min.js"></script>
+</body>
+@RenderSection("jsfooter", required: false)
+</html>

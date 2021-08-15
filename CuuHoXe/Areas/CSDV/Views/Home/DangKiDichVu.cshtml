@@ -1,0 +1,268 @@
+﻿@model ModelEF.EF.CoSoDichVu
+@{
+	ViewBag.Title = "Đăng kí làm điểm cung cấp dịch vụ";
+	Layout = "~/Areas/CSDV/Views/Shared/_Layout.cshtml";
+	var employeeData = ViewData["User"];
+}
+
+@{
+	string imgSrc1 = "";
+}
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel">
+			<div class="panel-heading">
+				<div class="panel-title">
+					<h5>Hoàn tất thông tin bên dưới để đăng kí làm điểm cung cấp dịch vụ nhé!</h5>
+				</div>
+			</div>
+			<div class="panel-body">
+				@using (Html.BeginForm("DangKiDichVu", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+				{
+					<h5 class="underline mt-n">Thông tin tài khoản</h5>
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Họ tên tài khoản</label>
+								<input type="text" id="disabled-input" name="HoTen" value="@ViewData["HoTen"]" disabled="" class="form-control">
+							</div>
+						</div>
+						<!-- /.col-md-6 -->
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="username13">Tên đăng nhập</label>
+								@Html.Hidden("TenTK", (object)ViewBag.TenTK)
+								<input type="text" id="TenTK" name="TenTK" value="@ViewData["TenTK"]" disabled="" class="form-control">
+							</div>
+						</div>
+						<!-- /.col-md-6 -->
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="exampleInputEmail13">Địa chỉ Email</label>
+								<input type="text" id="disabled-input" name="Email" value="@ViewData["Email"]" disabled="" class="form-control">
+							</div>
+						</div>
+						<!-- /.col-md-6 -->
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="contact13">Số điện thoại liên hệ</label>
+								<input type="text" id="disabled-input" name="SDT" value="@ViewData["SDT"]" disabled="" class="form-control">
+							</div>
+						</div>
+						<!-- /.col-md-6 -->
+					</div>
+					<h5 class="underline mt-30">Phần cho cơ sở dịch vụ</h5>
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label>Tên cửa hàng</label>
+								@Html.TextBoxFor(m => m.TenNCC, "", new { @class = "form-control", @placeholder = "Nhập vào tên cửa hàng" })
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Địa chỉ</label>
+								<input type="text" class="form-control" id="DChi" placeholder="Nhập vào số nhà, tên đường">
+								@Html.TextBoxFor(m => m.DiaChi, "", new { @type = "hidden", })
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="state">Tỉnh/TP</label>
+								<select id="province" name="province" class="form-control" onchange="changeFunc();">
+									<option value="" selected>---Chọn tỉnh/ thành phố----</option>
+								</select>
+							</div>
+						</div>
+						<!-- /.col-md-6 -->
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="state">Quận/huyện</label>
+								<select id="District" name="District" class="form-control" onchange="changeFuncDistrict();">
+									<option value="" selected>---Chọn quận/huyện----</option>
+								</select>
+							</div>
+						</div>
+						<!-- /.col-md-6 -->
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="state">Phường/xã</label>
+								<select id="Ward" name="Ward" class="form-control" onchange="SaveAddress();">
+									<option value="" selected>---Chọn phường/xã-----</option>
+								</select>
+							</div>
+						</div>
+						<!-- /.col-md-6 -->
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label">Chọn icon (.png, .ico, .jpg, .jpeg) </label>
+								<br />
+								<input type="file" accept=".png, .ico, .jpg, .jpeg" name="imageSave" id="LogoFile" onchange="imgPre1(this)" />
+
+								<div style="padding-top:5px">
+									<img id="ImgPreview1" src="@imgSrc1" width="120" height="240" />
+								</div>
+								<span asp-validation-for="LogoFile" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group checkbox has-error">
+								<label>
+									<input type="checkbox" data-validation="required" class="error" style="border-color: rgb(185, 74, 72);" data-validation-current-error="This is a required field" data-validation-has-keyup-event="true"> Tôi đồng ý với <a href="#" class="color-primary">điều khoản &amp; điều kiện</a>
+								</label>
+								<span class="help-block form-error">Không được bỏ trống</span>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="btn-group pull-right mt-10" role="group">
+								<button type="reset" class="btn btn-gray btn-wide"><i class="fa fa-times"></i>Quay lại</button>
+								<button type="submit" class="btn bg-black btn-wide"><i class="fa fa-arrow-right"></i>Đăng kí</button>
+							</div>
+							<!-- /.btn-group -->
+						</div>
+						<!-- /.col-md-12 -->
+					</div>
+
+				}
+				<!-- /.col-md-12 -->
+			</div>
+		</div>
+	</div>
+</div>
+
+@section jsfooter{
+	<script>
+		//Hàm load ảnh sau khi import (trước khi bấm submit)
+		$(document).ready(function () {
+
+			imgPre1 = function (input) {
+				if (input.files[0]) {
+					var uploadimg = new FileReader();
+					uploadimg.onload = function (displayimg) {
+						$("#ImgPreview1").attr('src', displayimg.target.result);
+					}
+					uploadimg.readAsDataURL(input.files[0]);
+				}
+			}
+		});
+		//Load tỉnh/tp vào dropdownlist
+		document.addEventListener("DOMContentLoaded", function () {
+			var province = document.getElementById("province");
+
+			window.onload = function () {
+				$.ajax({
+					url: 'https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province',
+					headers: {
+						'token': 'f57884a5-fd04-11eb-b5ad-92f02d942f87',
+						'Content-Type': 'application/json; charset=utf-8',
+					},
+					method: 'GET',
+					dataType: 'json',
+					success: function (response) {
+						var str = "option selected>Tỉnh/Thành</option>";
+						for (var i = 0; i < response.data.length; i++) {
+							str = str + "<option class='ProvinceID' data-province='" + response.data[i].ProvinceID + "'>" + response.data[i].ProvinceName + "</option>";
+						}
+						province.innerHTML = str;
+					}
+				})
+			}
+		}, false);
+
+		//Hàm hiển thị quận huyện dựa trên tỉnh/tp
+		function changeFunc() {
+			var selectBox = document.getElementById('province');
+			var selectedValue = selectBox.options[selectBox.selectedIndex].getAttribute('data-province');
+			var district = document.getElementById('District');
+			console.log("province seleccted: " + selectedValue);
+			$.ajax({
+				url: 'https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/district',
+				headers: {
+					'token': 'f57884a5-fd04-11eb-b5ad-92f02d942f87',
+					'Content-Type': 'application/json; charset=utf-8',
+				},
+				method: 'GET',
+				dataType: 'json',
+				success: function (response) {
+					var str = "option selected>Quận huyện</option>";
+					for (var i = 0; i < response.data.length; i++) {
+						//console.log(response.data[i].DistrictName);
+						if (response.data[i].ProvinceID == selectedValue) {
+							console.log(response.data[i].DistrictName);
+							str = str + "<option class='DistrictId' data-district='" + response.data[i].DistrictID + "'>"
+								+ response.data[i].DistrictName
+								+ "</option > ";
+						}
+						district.innerHTML = str;
+					}
+				}
+			});
+		}
+
+		//Hàm hiển thị phường xã dựa trên quận/huyện
+		function changeFuncDistrict() {
+			var selectBox = document.getElementById('District');
+			var selectedValue = selectBox.options[selectBox.selectedIndex].getAttribute('data-district');
+			var ward = document.getElementById('Ward');
+
+			console.log("disctric seleccted: " + selectedValue);
+
+			$.ajax({
+				url: 'https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id=' + selectedValue,
+				headers: {
+					'token': 'f57884a5-fd04-11eb-b5ad-92f02d942f87',
+					'Content-Type': 'application/json; charset=utf-8',
+				},
+				method: 'GET',
+				dataType: 'json',
+				success: function (response) {
+					console.log(response.data)
+					var str = "option selected>Phường/xã</option>";
+					for (var i = 0; i < response.data.length; i++) {
+						if (response.data[i].DistrictID == selectedValue) {
+							//console.log('success');
+							console.log(response.data[i].WardName);
+							str = str + "<option class='wardId' data-ward='" + response.data[i].WardCode + "'>"
+								+ response.data[i].WardName
+								+ "</option > ";
+						}
+						ward.innerHTML = str;
+					}
+				}
+			});
+		}
+
+		//Lưu địa chỉ ở dạng cuối cùng
+		function SaveAddress() {
+
+			var provinceText = $("#province option:selected").text();
+			var districtText = $("#District option:selected").text();
+			var wardText = $("#Ward option:selected").text();
+			var Num = $("#DChi").val();
+
+			var diachi = Num + ", " + wardText + ", " + districtText + ", Thành Phố " + provinceText;
+			$("#DiaChi").val(diachi);
+		}
+
+	</script>
+}
