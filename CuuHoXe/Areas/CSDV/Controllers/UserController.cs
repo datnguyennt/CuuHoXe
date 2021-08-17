@@ -31,41 +31,50 @@ namespace CuuHoXe.Areas.CSDV.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Register(LoginModels model)
 		{
-			var email = db.TaiKhoans.FirstOrDefault(s => s.Email == model.Email);
-			var tentk = db.TaiKhoans.FirstOrDefault(s => s.TenTK == model.TenTK);
-			var sdt = db.TaiKhoans.FirstOrDefault(s => s.SoDienThoai == model.SoDienThoai);
-			if (email == null && tentk == null && sdt == null)
+			try
 			{
-				TaiKhoan tk = new TaiKhoan
+				var email = db.TaiKhoans.FirstOrDefault(s => s.Email == model.Email);
+				var tentk = db.TaiKhoans.FirstOrDefault(s => s.TenTK == model.TenTK);
+				var sdt = db.TaiKhoans.FirstOrDefault(s => s.SoDienThoai == model.SoDienThoai);
+				if (email == null && tentk == null && sdt == null)
 				{
-					TenTK = model.TenTK,
-					HoTen = model.HoTen,
-					MatKhau = model.MatKhau,
-					Email = model.Email,
-					SoDienThoai = model.SoDienThoai,
-					PhanQuyen = Common.CSDV_GROUP,
-					NgaySinh = model.NgaySinh
-				};
-				db.TaiKhoans.Add(tk);
-				db.SaveChanges();
-				this.AddNotification("Đăng kí tài khoản thành công. Vui lòng đăng nhập", NotificationType.SUCCESS);
-				return RedirectToAction("Login");
+					TaiKhoan tk = new TaiKhoan
+					{
+						TenTK = model.TenTK,
+						HoTen = model.HoTen,
+						MatKhau = model.MatKhau,
+						Email = model.Email,
+						SoDienThoai = model.SoDienThoai,
+						PhanQuyen = Common.CSDV_GROUP,
+						NgaySinh = model.NgaySinh
+					};
+					db.TaiKhoans.Add(tk);
+					db.SaveChanges();
+					this.AddNotification("Đăng kí tài khoản thành công. Vui lòng đăng nhập", NotificationType.SUCCESS);
+					return RedirectToAction("Login");
+				}
+				else if (tentk != null)
+				{
+					this.AddNotification("Tên đăng nhập đã tồn tại", NotificationType.ERROR);
+					return View();
+				}
+				else if (email != null)
+				{
+					this.AddNotification("Email đã tồn tại", NotificationType.ERROR);
+					return View();
+				}
+				else if (sdt != null)
+				{
+					this.AddNotification("Số điện thoại đã được đăng kí", NotificationType.ERROR);
+					return View();
+				}
 			}
-			else if (tentk != null)
+			catch (Exception)
 			{
-				this.AddNotification("Tên đăng nhập đã tồn tại", NotificationType.ERROR);
 				return View();
+				throw;
 			}
-			else if (email != null)
-			{
-				this.AddNotification("Email đã tồn tại", NotificationType.ERROR);
-				return View();
-			}
-			else if (sdt != null)
-			{
-				this.AddNotification("Số điện thoại đã được đăng kí", NotificationType.ERROR);
-				return View();
-			}
+			
 			return View();
 		}
 
@@ -123,42 +132,51 @@ namespace CuuHoXe.Areas.CSDV.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Login(LoginModels model)
 		{
-			var result = LoginCSDV(model.TenTK, model.MatKhau); //Tạo biến result để kiểm tra đăng nhập
-			if (result == 1) //Nếu tên đăng nhập và mật khẩu đúng
+			try
 			{
-				//tạo biến user để lấy thông tin cần thiết, sau đó truyền vào session
-				var user = getUserByTK(model.TenTK);
+				var result = LoginCSDV(model.TenTK, model.MatKhau); //Tạo biến result để kiểm tra đăng nhập
+				if (result == 1) //Nếu tên đăng nhập và mật khẩu đúng
+				{
+					//tạo biến user để lấy thông tin cần thiết, sau đó truyền vào session
+					var user = getUserByTK(model.TenTK);
 
-				var userSession = new UserLogin
-				{
-					TenTK = user.TenTK,
-				};
-				var checkTK = checkTenTK(model.TenTK);
-				if (checkTK == null) //Tài khoản chưa đăng kí làm điểm cung cấp dịch vụ
-				{
-					Session["Status"] = false;
+					var userSession = new UserLogin
+					{
+						TenTK = user.TenTK,
+						HoTen = user.HoTen
+					};
+					var checkTK = checkTenTK(model.TenTK);
+					if (checkTK == null) //Tài khoản chưa đăng kí làm điểm cung cấp dịch vụ
+					{
+						Session["Status"] = false;
+					}
+					else //Tài khoản đã đăng kí làm điểm cung cấp dịch vụ
+					{
+						Session["Status"] = true;
+					}
+					string hoTen = user.HoTen;
+					Session.Add(Constants.USER_SEESION, userSession); //Session này để kiểm tra khi vào trang chủ index home
+					Session["FullName"] = hoTen.ToString(); //Session này dùng cho lời chào ở trang index home
+					Session["TenTK"] = user.TenTK.ToString(); //Session này dùng cho đăng kí làm điểm cung cấp dịch vụ
+					return RedirectToAction("Index", "Home"); //Sau đó quay về trang index home
 				}
-				else //Tài khoản đã đăng kí làm điểm cung cấp dịch vụ
+				else if (result == 0) //Nếu tài khoản không tồn tại
 				{
-					Session["Status"] = true;
+					this.AddNotification("Tài khoản không tồn tại", NotificationType.ERROR);
 				}
-				string hoTen = user.HoTen;
-				Session.Add(Constants.USER_SEESION, userSession); //Session này để kiểm tra khi vào trang chủ index home
-				Session["FullName"] = hoTen.ToString(); //Session này dùng cho lời chào ở trang index home
-				Session["TenTK"] = user.TenTK.ToString(); //Session này dùng cho đăng kí làm điểm cung cấp dịch vụ
-				return RedirectToAction("Index", "Home"); //Sau đó quay về trang index home
+				else if (result == -2)
+				{
+					this.AddNotification("Sai mật khẩu", NotificationType.ERROR);
+				}
+				else
+				{
+					this.AddNotification("Sai tên đăng nhập", NotificationType.ERROR);
+				}
 			}
-			else if (result == 0) //Nếu tài khoản không tồn tại
+			catch (Exception)
 			{
-				this.AddNotification("Tài khoản không tồn tại", NotificationType.ERROR);
-			}
-			else if (result == -2)
-			{
-				this.AddNotification("Sai mật khẩu", NotificationType.ERROR);
-			}
-			else
-			{
-				this.AddNotification("Sai tên đăng nhập", NotificationType.ERROR);
+				return View();
+				throw;
 			}
 			return View("Login"); //Nếu modelstate == false thì ở yên tại chỗ
 		}

@@ -2,13 +2,8 @@
 @{
 	ViewBag.Title = "Đăng kí làm điểm cung cấp dịch vụ";
 	Layout = "~/Areas/CSDV/Views/Shared/_Layout.cshtml";
-	var employeeData = ViewData["User"];
-}
-
-@{
 	string imgSrc1 = "";
 }
-
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel">
@@ -113,7 +108,7 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<label class="control-label">Chọn icon (.png, .ico, .jpg, .jpeg) </label>
+								<label class="control-label">Chọn giấy đăng kí kinh doanh (.png, .ico, .jpg, .jpeg) </label>
 								<br />
 								<input type="file" accept=".png, .ico, .jpg, .jpeg" name="imageSave" id="LogoFile" onchange="imgPre1(this)" />
 

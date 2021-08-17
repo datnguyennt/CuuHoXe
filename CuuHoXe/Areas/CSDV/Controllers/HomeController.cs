@@ -25,7 +25,15 @@ namespace CuuHoXe.Areas.CSDV.Controllers
 		{
 			var tentk = Session["TenTK"].ToString();
 			var csdvu = db.CoSoDichVus.FirstOrDefault(x => x.TenTK == tentk);
-			Session["TrangThaiDK"] = csdvu.TrangThaiDK;
+			if (csdvu == null)
+			{
+				Session["TrangThaiDK"] = "";
+			}
+			else
+			{
+				Session["TrangThaiDK"] = csdvu.TrangThaiDK;
+			}
+
 			return View();
 		}
 
@@ -90,7 +98,7 @@ namespace CuuHoXe.Areas.CSDV.Controllers
 			//Lưu vào table hình ảnh giấy phép
 			GiayPhepCSDV gp = new GiayPhepCSDV
 			{
-				MaAnh = string.Concat("NCC", maxAnh + 1),
+				MaAnh = string.Concat("GP", maxAnh + 1),
 				HinhAnh = model.HinhAnh,
 				MaNCC = model.MaNCC
 			};
